@@ -4,23 +4,27 @@
 #-----------------------------------------------------------------------------
 # Application Configuration
 #-----------------------------------------------------------------------------
+ENV['CHEF_ENV'] ||= "dev"
+
 app_config = {
     "name"              => "vnpp",
     "box"               => "precise64",
-    "box_url"           => "https://files.vagrantup.com/precise64.box",
+    "box_url"           => "http://files.vagrantup.com/precise64.box",
     "guest_ip"          => "33.33.33.12",
     "memory"            => "1024",
     "hostname"          => "vnpp.dev",
     "sync_folder"       => "/home/vagrant/vnpp",
     "docroot"           => "/home/vagrant/vnpp",
     "chef_version"      => "11.8.0",
-    "chef_env"          => "dev"
+    "chef_env"          => ENV['CHEF_ENV']
 }
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.require_plugin "vagrant-berkshelf"
+Vagrant.require_plugin "vagrant-hostmanager"
+Vagrant.require_plugin "vagrant-omnibus"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
